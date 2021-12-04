@@ -4,7 +4,7 @@ use std::io::{self, BufRead};
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let day = &args[0].split("/").last().unwrap();
+    let day = &args[0].split('/').last().unwrap();
     let test = if args.get(1).is_none() || !args.get(1).unwrap().eq("test") {
         ""
     } else {
