@@ -1,9 +1,9 @@
-use crate::files::get_input;
 use std::collections::HashMap;
-mod files;
+
+use aoc2021::files::get_input;
 
 fn main() {
-    let commands: Vec<String> = get_input();
+    let commands: Vec<String> = get_input(false);
 
     println!("Solution 1 is: {} ", fish_after_days(&commands[0], 80));
     println!("Solution 2 is: {} ", fish_after_days(&commands[0], 256));
@@ -19,7 +19,7 @@ fn fish_after_days(command: &String, days: i32) -> i64 {
         *f_n += 1;
     }
     println!("Starting fish {:?}", fish_count);
-    for i in 1..=days {
+    for _ in 1..=days {
         let f_zero = *fish_count.get(&0).unwrap_or(&0_i64);
         for day in 1..=8 {
             *fish_count.entry(day - 1).or_default() = *fish_count.get(&day).unwrap_or(&0_i64);
@@ -28,4 +28,12 @@ fn fish_after_days(command: &String, days: i32) -> i64 {
         *fish_count.entry(6).or_default() += f_zero;
     }
     fish_count.into_values().sum::<i64>()
+}
+
+#[test]
+fn test_day06() {
+    let commands: Vec<String> = get_input(true);
+
+    assert_eq!(fish_after_days(&commands[0], 80), 5934);
+    assert_eq!(fish_after_days(&commands[0], 256), 26984457539);
 }
