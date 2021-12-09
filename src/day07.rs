@@ -5,7 +5,6 @@ fn main() {
 
     println!("Solution 1 is: {} ", minimum_fuel(&commands[0], false));
     println!("Solution 2 is: {} ", minimum_fuel(&commands[0], true));
-    // println!("Solution 2 is: {} ", fish_after_days(&commands[0], 256));
 }
 fn minimum_fuel(command: &String, expensive: bool) -> i32 {
     let crabs: Vec<i32> = command
