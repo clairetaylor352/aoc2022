@@ -1,0 +1,70 @@
+[[bin]]
+
+name = day
+path = src/day.rs
+
+[[bin]]
+
+name = day
+path = src/day.rs
+
+[[bin]]
+
+name = day
+path = src/day.rs
+
+[[bin]]
+
+name = day
+path = src/day.rs
+
+[[bin]]
+
+name = day
+path = src/day.rs
+
+[[bin]]
+
+name = day
+path = src/day.rs
+
+[[bin]]
+
+name = day
+path = src/day.rs
+
+[[bin]]
+
+name = day
+path = src/day.rs
+
+[[bin]]
+
+name = day
+path = src/day.rs
+
+[[bin]]
+
+name = dayday01
+path = src/dayday01.rs
+
+[[bin]]
+
+name = day01
+path = src/day01.rs
+
+[[bin]]
+
+name = day01
+path = src/day01.rs
+
+[[bin]]
+
+name = day01
+path = src/day01.rs
+
+[[bin]]
+
+name = day01
+path = src/day01.rs
+

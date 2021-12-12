@@ -1,7 +1,4 @@
-use std::{
-    collections::{hash_map::DefaultHasher, HashMap, HashSet},
-    iter::FromIterator,
-};
+use std::collections::HashSet;
 
 use aoc2021::files::get_input;
 /* 0:      1:      2:      3:      4:
