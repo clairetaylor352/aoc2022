@@ -82,7 +82,7 @@ fn path_valid_pt_2(path: &Vec<&str>) -> bool {
 
 #[derive(PartialEq, Debug)]
 struct Path<'a> {
-    cave1: &str,
+    cave1: &'a str,
     cave2: &'a str,
 }
 
