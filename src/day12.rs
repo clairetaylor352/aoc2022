@@ -12,27 +12,30 @@ fn main() {
 }
 
 fn explore_paths(paths: &Vec<Path>, pt2: bool) -> usize {
-    let mut explored_paths: Vec<Vec<String>> = Vec::new();
-    let mut valid_paths: Vec<Vec<String>> = Vec::new();
+    let mut explored_paths: Vec<Vec<&str>> = Vec::new();
+    let mut valid_paths: Vec<Vec<&str>> = Vec::new();
     //Starting caves
     for cave in paths
         .iter()
-        .filter_map(|x| x.return_other_cave("start".to_string()))
+        .filter_map(|x| x.return_other_cave("start"))
         .collect_vec()
     {
-        explored_paths.push(vec!["start".to_string(), cave]);
+        explored_paths.push(vec!["start", cave]);
     }
     // println!("Explored paths at start is {:?}", explored_paths);
-    while let Some(x) = &explored_paths.pop() {
+    while let Some(path_to_explore) = &explored_paths.pop() {
         // println!("Exploring from {:?}", x);
         let caves_from_last = paths
             .iter()
-            .filter_map(|p| p.return_other_cave(x.last().unwrap().clone()))
-            .collect_vec();
+            .filter_map(|p| p.return_other_cave(path_to_explore.last().unwrap().clone()));
+
         // println!("Found caves to explore {:?}", caves_from_last);
-        for cave in &caves_from_last {
-            let mut copy_path = x.clone();
-            copy_path.push(cave.to_string());
+        for cave in caves_from_last {
+            let copy_path = path_to_explore
+                .iter()
+                .chain(std::iter::once(&cave))
+                .cloned()
+                .collect_vec();
             // println!("new path to check {:?}", copy_path);
             if cave == "end" {
                 valid_paths.push(copy_path);
@@ -47,10 +50,10 @@ fn explore_paths(paths: &Vec<Path>, pt2: bool) -> usize {
 
     valid_paths.len()
 }
-fn path_valid(path: &Vec<String>) -> bool {
+fn path_valid(path: &Vec<&str>) -> bool {
     let mut last = "";
     for s in path.iter().sorted() {
-        if s == last && (s == "start" || s.to_ascii_lowercase() == s.to_string()) {
+        if *s == last && (*s == "start" || &s.to_ascii_lowercase() == s) {
             return false;
         }
         last = s;
@@ -58,14 +61,14 @@ fn path_valid(path: &Vec<String>) -> bool {
     true
 }
 
-fn path_valid_pt_2(path: &Vec<String>) -> bool {
+fn path_valid_pt_2(path: &Vec<&str>) -> bool {
     let mut last = "";
     let mut small_twice = false;
     for s in path.iter().sorted() {
-        if s == last && s == "start" {
+        if *s == last && *s == "start" {
             return false;
         }
-        if s == last && s.to_ascii_lowercase() == s.to_string() {
+        if *s == last && &s.to_ascii_lowercase() == s {
             if small_twice {
                 return false;
             }
@@ -78,13 +81,13 @@ fn path_valid_pt_2(path: &Vec<String>) -> bool {
 }
 
 #[derive(PartialEq, Debug)]
-struct Path {
-    cave1: String,
-    cave2: String,
+struct Path<'a> {
+    cave1: &str,
+    cave2: &'a str,
 }
 
-impl Path {
-    fn return_other_cave(&self, name: String) -> Option<String> {
+impl<'a> Path<'a> {
+    fn return_other_cave(&self, name: &str) -> Option<&str> {
         if self.cave1 == name {
             return Some(self.cave2.clone());
         }
@@ -102,9 +105,6 @@ fn parse_input(commands: &[String]) -> Vec<Path> {
         .collect_vec()
 }
 
-fn create_path((path1, path2): (&str, &str)) -> Path {
-    Path {
-        cave1: path1.to_string(),
-        cave2: path2.to_string(),
-    }
+fn create_path<'a>((cave1, cave2): (&'a str, &'a str)) -> Path<'a> {
+    Path { cave1, cave2 }
 }
