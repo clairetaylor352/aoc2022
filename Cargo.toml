@@ -7,6 +7,9 @@ edition = "2018"
 
 [dependencies]
 itertools = "0.10"
+counter = "0.5.2"
+
+
 [[bin]]
 
 name = "day02"
@@ -77,4 +80,10 @@ path = "src/day12.rs"
 
 
 
+
+
+[[bin]]
+
+name = "day13"
+path = "src/day13.rs"
 
