@@ -114,7 +114,6 @@ impl Path {
 
     fn xspeedhits(&mut self, xmin: i32, xmax: i32) -> bool {
         while let Some((x, _)) = self.next() {
-            println!("x is {}, xspeed is {}", x, self.xspeed);
             if x >= xmin && x <= xmax {
                 return true;
             }
